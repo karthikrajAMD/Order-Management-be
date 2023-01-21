@@ -56,60 +56,6 @@ const roleOwners = async (req, res, next) => {
     res.send({ statusCode: 400, message: "Token is missing" });
   }
 };
-// const validatePass = async (req, res, next) => {
-//   if (req.headers && req.headers.authorization) {
-//     let token = await req.headers.authorization.split(" ")[1];
-//     let decode = jwt.verify(token, secretKey);
-//     if (decode) {
-//       let decodeMyToken = await decodeToken(token);
-//       console.log(decodeMyToken);
-//       req.mydecodeToken = decodeMyToken;
-//       if (Math.round(Date.now() / 1000) < decodeMyToken.exp) {
-//         next();
-//       } else {
-//         res.send({ statusCode: 400, message: "OTP is not verified" });
-//       }
-//     } else {
-//       res.send({ statusCode: 400, message: "Invalid token" });
-//     }
-//   } else {
-//     res.send({ statusCode: 400, message: "Token is missing" });
-//   }
-// };
-
-// const roleManager = async (req, res, next) => {
-//   console.log(req.headers);
-//   console.log(req.headers.authorization);
-//   if (req.headers && req.headers.authorization) {
-//     let token = await req.headers.authorization.split(" ")[1];
-//     let decodeMyToken = await decodeToken(token);
-//     console.log(decodeMyToken);
-//     if (decodeMyToken.role === "Manager") {
-//       next();
-//     } else {
-//       res.send({ statusCode: 400, message: "only Manager can access" });
-//     }
-//   } else {
-//     res.send({ statusCode: 400, message: "Token is missing" });
-//   }
-// };
-// const roleEmployee = async (req, res, next) => {
-//   if (req.headers && req.headers.authorization) {
-//     let token = await req.headers.authorization.split(" ")[1];
-//     let decodeMyToken = await decodeToken(token);
-//     console.log(decodeMyToken);
-//     if (decodeMyToken.role === "user") {
-//       next();
-//     } else {
-//       res.send({
-//         statusCode: 400,
-//         message: "only Employee allowed to login this portal ",
-//       });
-//     }
-//   } else {
-//     res.send({ statusCode: 400, message: "Token is missing" });
-//   }
-// };
 module.exports = {
   hashedPassword,
   hashCompare,
