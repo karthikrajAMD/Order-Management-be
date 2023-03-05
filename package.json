@@ -1,5 +1,5 @@
 {
-  "name": "ordermanagement-be",
+  "name": "order-management-be",
   "version": "0.0.0",
   "private": true,
   "scripts": {
