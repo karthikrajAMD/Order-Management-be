@@ -25,7 +25,6 @@ router.post("/add_details", async (req, res) => {
 });
 router.put("/update-status/:id", async (req, res) => {
   try {
-    console.log("helloooo");
     console.log(req.body.orderedProducts);
     let userExist = await orderDetail.findOne({ _id: req.params.id });
     if (userExist) {

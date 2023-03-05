@@ -1,5 +1,8 @@
 var express = require("express");
 var router = express.Router();
+const dotenv = require("dotenv").config();
+var { v4: uuidv4 } = require("uuid");
+const stripe = require("stripe")(process.env.STRIPE_KEY);
 const { default: mongoose } = require("mongoose");
 const { mongodb, dbName, dbUrl } = require("../config/dbConfig");
 const { userModel } = require("../Schema/UserSchema");
@@ -27,6 +30,10 @@ router.get("/verify", validate, roleOwners, async (req, res) => {
     res.send({ statusCode: 500, message: "Internal server in error" });
   }
 });
+
+// **************************************************************************************
+
+// **************************************************************************************
 router.post("/signup", async (req, res) => {
   try {
     if (req.body.password === req.body.cpassword) {
@@ -156,64 +163,5 @@ router.post("/:id/:token", async (req, res) => {
     res.status(401).json({ status: 401, error });
   }
 });
-// router.post("/forget", async (req, res) => {
-//   try {
-//     let userExist = await userModel.findOne({ email: req.body.email });
-//     if (userExist) {
-//       let otp = Math.floor(Math.random() * 9000) + 1000;
-//       console.log(otp);
-//       // await sendMail(userExist.email, otp);
-//       let forgetToken = await createToken(userExist, otp);
-//       let myMail = userExist.email;
-//       let reset = await userExist.updateOne({ reset: true });
-//       res.send({
-//         statusCode: 300,
-//         message: `Otp sent to ${req.body.email}`,
-//         forgetToken,
-//         myMail,
-//       });
-//     } else {
-//       req.send({ statusCode: 400, message: "Email is not Registered" });
-//     }
-//   } catch (err) {
-//     res.send({ statusCode: 504, message: "Internal Error" });
-//   }
-// });
-
-// router.get("/verify", validate, async (req, res) => {
-//   try {
-//     console.log("HELLO", req.mydecodeToken.otp);
-//     let users = await userModel.findOne({ email: req.body.email });
-//     if (users && users.reset === "true") {
-//       if (req.mydecodeToken.otp === 5614) {
-//         // let reset = await users.update({ reset: false, otpVerified: true });
-//         let token = await createTokenForPass(users.email);
-//         res.send({ statusCode: 200, message: "Otp verified", token });
-//       } else {
-//         res.send({ statusCode: 202, message: "INVALID OTP" });
-//       }
-//     } else {
-//       res.send({ statusCode: 202, message: "Invalid user" });
-//     }
-//   } catch (err) {
-//     res.send({ statusCode: 500, message: "Internal server in error" });
-//   }
-// });
-
-// router.get("/resetPassword", validatePass, async (req, res) => {
-//   try {
-//     console.log(req.mydecodeToken);
-//     let users = await userModel.findOne({ email: req.mydecodeToken.email });
-//     if (users) {
-//       let newHashedPassword = await hashedPassword(req.body.password);
-//       let password = await users.updateOne({ password: newHashedPassword });
-//       res.send({ statusCode: 200, message: "password changed successfully" });
-//     } else {
-//       res.send({ statusCode: 202, message: "Invalid user" });
-//     }
-//   } catch (error) {
-//     res.send({ statusCode: 500, message: "Internal server in error" });
-//   }
-// });
 
 module.exports = router;
