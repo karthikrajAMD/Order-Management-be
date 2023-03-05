@@ -6,7 +6,6 @@ const stripe = require("stripe")(process.env.STRIPE_KEY);
 const { default: mongoose } = require("mongoose");
 const { mongodb, dbName, dbUrl } = require("../config/dbConfig");
 const { userModel } = require("../Schema/UserSchema");
-const { sendMail } = require("../config/mailService");
 const { nodemailerService } = require("../config/nodemailerService");
 const jwt = require("jsonwebtoken");
 const {
